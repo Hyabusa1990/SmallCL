@@ -42,13 +42,13 @@
                         <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        <form role="form" action="login.php" method="POST">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="Benutzername" name="userName" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Passwort" name="password" type="password" value="">
                                 </div>
                                 <div class="checkbox">
                                     <label>
@@ -56,7 +56,8 @@
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>
+                                <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
+                                <input type="submit" value="Submit" class="btn btn-lg btn-success btn-block">
                             </fieldset>
                         </form>
                     </div>
