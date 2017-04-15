@@ -1,4 +1,21 @@
 <!DOCTYPE html>
+
+<?php
+define('WERDICHLEGALGERUFEN', 1);
+require_once('../includes/database.php');
+session_start();
+
+if(isset($_POST["UserName"]) && isset[$_POST["password"]]){
+    $db = new Database();
+    $user = $db->get_userFromUserName($_POST["UserName"]);
+
+    if(!is_null($user)){
+        if($user->check_password($_POST["password"])){
+            $_SESSION["LogedInUser"] = $user;
+        }
+    }
+}
+?>
 <html lang="en">
 
 <head>
@@ -9,7 +26,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>SmallCL</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -39,7 +56,7 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
+                        <h3 class="panel-title">Bitte anmelden</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" action="login.php" method="POST">
@@ -52,12 +69,12 @@
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                        <input name="remember" type="checkbox" value="Remember Me">Angemeldet bleiben
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
-                                <input type="submit" value="Submit" class="btn btn-lg btn-success btn-block">
+                                <input type="submit" value="Anmelden" class="btn btn-lg btn-success btn-block">
                             </fieldset>
                         </form>
                     </div>
