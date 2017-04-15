@@ -13,45 +13,45 @@ class User {
     private $type;
     
     public function __constructor($pUserName, $pName, $pVName, $pEMail, $pPwCn, $pType) {
-        self::set_userName($pUserName);
-        self::set_name($pName);
-        self::set_vName($pVName);
-        self::set_eMail($pEMail);
-        self::set_PwCn($pPwCn);
-        self::set_Type($pType);
+        $this->set_userName($pUserName);
+        $this->set_name($pName);
+        $this->set_vName($pVName);
+        $this->set_eMail($pEMail);
+        $this->set_PwCn($pPwCn);
+        $this->set_Type($pType);
     }
     
     public function get_userName() {
-        return self::$userName;
+        return $this->$userName;
     }
     
     public function set_userName ($pUserName) {
-        self::$userName = $pUserName;
+        $this->$userName = $pUserName;
     }
     
     public function get_name() {
-        return self::$name;
+        return $this->$name;
     }
     
     public function set_name ($pName) {
-        self::$name = $pName;
+        $this->$name = $pName;
     }
     
     public function get_vName() {
-        return self::$vName;
+        return $this->$vName;
     }
     
     public function set_vName ($pVName) {
-        self::$vName = $pVName;
+        $this->$vName = $pVName;
     }
     
     public function get_eMail () {
-        return self::$eMail;
+        return $this->$eMail;
     }
     
     public function set_eMail ($pEMail) {
         if (filter_var($pEMail, FILTER_VALIDATE_EMAIL)) {
-            self::$eMail = $pEMail;
+            $this->$eMail = $pEMail;
         }
         else {
             throw new Exception ("This E-Mail Adress is invalid!");
@@ -59,20 +59,20 @@ class User {
     }
     
     public function get_PwCn () {
-        return self::$pwCn;
+        return $this->$pwCn;
     }
     
     public function set_PwCn ($pPwCn) {
-        self::$pwCn = $pPwCn;
+        $this->$pwCn = $pPwCn;
     }
     
     public function get_Type () {
-        return self::$type;
+        return $this->$type;
     }
     
     public function set_Type ($pType) {
         if ($pType == 1 || $pType == 2){
-            self::$type = $pType;
+            $this->$type = $pType;
         }
         else {
             throw new Exeption('Wrong type!');
@@ -80,11 +80,11 @@ class User {
     }
     
     public function set_plainPw ($pPlainPw) {
-        self::$pwCn = password_hash($pPlainPw, PASSWORD_DEFAULT);
+        $this->$pwCn = password_hash($pPlainPw, PASSWORD_DEFAULT);
     }
     
     public function check_password ($pPlainPw) {
-        return password_verify($pPlainPw, self::$pwCn);
+        return password_verify($pPlainPw, $this->$pwCn);
     }
     
     
