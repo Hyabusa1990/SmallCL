@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php
+//Define um geschuetze Seiten aufzurufen
+define('WERDICHLEGALGERUFEN', 1);
+?>
+
 <html lang="en">
 
 <head>
