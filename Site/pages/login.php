@@ -5,18 +5,45 @@ define('WERDICHLEGALGERUFEN', 1);
 require_once('../includes/database.php');
 session_start();
 
-if(isset($_POST["UserName"]) && isset[$_POST["password"]]){
-    $db = new Database();
-    $user = $db->get_userFromUserName($_POST["UserName"]);
+$db = new Database();
+$loginWrong = FALSE;
 
+if(isset($_POST["userName"]) && isset($_POST["password"])){
+    $user = $db->get_userFromUserName($_POST["userName"]);
     if(!is_null($user)){
         if($user->check_password($_POST["password"])){
             $_SESSION["LogedInUser"] = $user;
+            echo $user->get_userName();
+            if(isset($_POST["remember"])){
+                if($_POST["remember"] = $TRUE){
+                    setcookie("SmallCLUser", $user->get_userName());
+                    setcookie("SmallCLToken", $user->get_PwCn());
+                }
+            }
+        }
+        else{
+            $loginWrong = TRUE;
         }
     }
+    else{
+        $loginWrong = TRUE;
+    }
+}
+else if(isset($_COOKIE["SmallCLUser"])){
+    $user = $db->get_userFromUserName($_COOKIE["SmallCLUSer"]);
+
+    if($user->get_PwCn() == $_COOKIE["SmallCLToken"]){
+        $_SESSION["LogedInUser"] = $user;
+    }
+}
+
+if(isset($_SESSION["LogedInUser"])){
+    echo "<script language=\"javascript\">\n";
+    echo "  window.location.href = \"index.php\"\n";
+    echo "</script>";
 }
 ?>
-<html lang="en">
+<html lang="de">
 
 <head>
 
@@ -50,7 +77,6 @@ if(isset($_POST["UserName"]) && isset[$_POST["password"]]){
 </head>
 
 <body>
-
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
@@ -58,6 +84,13 @@ if(isset($_POST["UserName"]) && isset[$_POST["password"]]){
                     <div class="panel-heading">
                         <h3 class="panel-title">Bitte anmelden</h3>
                     </div>
+                    <?php
+                        if($loginWrong){
+                            print "<div class=\"alert alert-danger\">\n";
+                            print "    Anmeldung fehlgeschlagen";
+                            print "</div>";
+                        }
+                    ?>
                     <div class="panel-body">
                         <form role="form" action="login.php" method="POST">
                             <fieldset>

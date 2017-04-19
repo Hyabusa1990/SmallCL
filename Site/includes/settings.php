@@ -9,7 +9,7 @@ class Settings {
     private static $dbServer = 'localhost';
     private static $dbUser = 'root';
     private static $dbPw = '';
-    private static $dbName = 'SmartCL';    
+    private static $dbName = 'smallcl';    
     
     public static function get_dbServer() {
         return self::$dbServer;

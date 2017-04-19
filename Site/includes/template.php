@@ -15,7 +15,7 @@ class Template
 
 	public function __constructor($pID, $pTitle, $pCTitle, $pCText, $pObject)
 	{
-		$this->$ID = $pID;
+		$this->ID = $pID;
 		$this->set_Title($pTitle);
 		$this->set_cTitle($pCTitle);
 		$this->set_cText($pCText);
@@ -24,48 +24,47 @@ class Template
 
 	public function get_ID()
 	{
-		return $this->$ID;
+		return $this->ID;
 	}
 
 	public function get_Title()
 	{
-		return $this->$title;
+		return $this->title;
 	}
 
 	public function set_Title($pTitle)
 	{
-		$this->$title = $pTitle;
+		$this->title = $pTitle;
 	}
 
 	public function get_cTitle()
 	{
-		return $this->$cTitle;
+		return $this->cTitle;
 	}
 
 	public function set_cTitle($pCTitle)
 	{
-		$this->$cTitle = $pCTitle;
+		$this->cTitle = $pCTitle;
 	}
 
 	public function get_cText()
 	{
-		return $this->$cText;
+		return $this->cText;
 	}
 
 	public function set_cText($pCText)
 	{
-		$this->$cText = $pCText;
+		$this->cText = $pCText;
 	}
 
 	public function get_Object()
 	{
-		return $this->$object;
+		return $this->object;
 	}
 
 	public function set_Object($cObject)
 	{
-		$this->$object = $cObject;
+		$this->object = $cObject;
 	}
-
 }
 ?>

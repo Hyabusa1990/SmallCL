@@ -13,34 +13,34 @@ class CType
 
 	public function __constructor($pID, $pTitle, $pIcon)
 	{
-		$this->$ID = $pID;
+		$this->ID = $pID;
 		$this->set_Title($pTitle);
 		$this->set_Icon($pIcon);
 	}
 
 	public function get_ID()
 	{
-		return $this->$ID;
+		return $this->ID;
 	}
 
 	public function get_Title()
 	{
-		return $this->$title;
+		return $this->title;
 	}
 
 	public function set_Title($pTitle)
 	{
-		$this->$title = $pTitle;
+		$this->title = $pTitle;
 	}
 
 	public function get_Icon()
 	{
-		return $this->$icon;
+		return $this->icon;
 	}
 
 	public function set_Icon($pIcon)
 	{
-		$this->$icon = $pIcon;
+		$this->icon = $pIcon;
 	}
 
 }

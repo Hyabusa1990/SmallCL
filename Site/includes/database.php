@@ -12,11 +12,15 @@ class Database
 
 	function login()
 	{
-		$con = mysqli_connect(Settings::get_dbServer(), Settings::get_dbUser(), Settings::
-		get_dbPw());
-		mysqli_select_db($con, Settings::get_dbName());
+		$con = mysqli_connect(Settings::get_dbServer(), Settings::get_dbUser(), Settings::get_dbPw(), Settings::get_dbName());
 		mysqli_set_charset($con, 'utf8');
-		return $con;
+        // Check connection
+        if (!$con) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+        else{
+		    return $con;
+        }
 	}
 
 	function closeDB($con)
@@ -25,12 +29,11 @@ class Database
 	}
 
 
-    public function get_userFromUserName ($pUserName) {
+    public function get_userFromUserName($pUserName) {
         $con = $this->login();
         $pUserName = $con->real_escape_string($pUserName);
         $result = mysqli_query($con, 'SELECT * FROM `user` WHERE `UserName` LIKE "' . $pUserName . '";');
-        $this->closeDB($con);
-        if ($result->numRows() != 0){
+        if (mysqli_num_rows($result) > 0){
             $user = new User ();
             while ($row = mysqli_fetch_array($result)){
                 $user->set_userName($row['UserName']);
@@ -40,9 +43,11 @@ class Database
                 $user->set_PwCn($row['PWCN']);
                 $user->set_Type($row['type']);
             }
+            $this->closeDB($con);
             return $user;
         }
         else {
+            $this->closeDB($con);
             return Null;
         }
     }

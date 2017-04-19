@@ -2,6 +2,13 @@
 <?php
 //Define um geschuetze Seiten aufzurufen
 define('WERDICHLEGALGERUFEN', 1);
+
+session_start();
+
+if(!isset($_SESSION["LogedInUser"])){
+    header("location:login.php");
+    die;
+}
 ?>
 
 <html lang="en">
