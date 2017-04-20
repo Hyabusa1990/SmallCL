@@ -122,3 +122,8 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Insert defaut Admin User admin / smallcl
+-- -----------------------------------------------------
+INSERT INTO `user`(`UserName`, `Name`, `VName`, `email`, `PWCN`, `type`) VALUES ("admin","SmallCL","Administrator","admin@cmallcl.local","$2y$10$wkydcPreNCjG/JF3UXcmB.hzGX5o15rlxZGMzjSZkmSOzbdugjZu2",1);

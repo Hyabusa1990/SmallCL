@@ -3,7 +3,20 @@
 <?php
 define('WERDICHLEGALGERUFEN', 1);
 require_once('../includes/database.php');
-session_start();
+require_once('../includes/user.php');
+require_once('../includes/helper.php');
+header('Content-Type: text/html; charset=UTF-8');
+ if(!isset($_SESSION))
+{
+    session_start();
+}
+
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+    // last request was more than 30 minutes ago
+    session_unset();     // unset $_SESSION variable for the run-time
+    session_destroy();   // destroy session data in storage
+}
+$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
 $db = new Database();
 $loginWrong = FALSE;
@@ -15,9 +28,9 @@ if(isset($_POST["userName"]) && isset($_POST["password"])){
             $_SESSION["LogedInUser"] = $user;
             echo $user->get_userName();
             if(isset($_POST["remember"])){
-                if($_POST["remember"] = $TRUE){
-                    setcookie("SmallCLUser", $user->get_userName());
-                    setcookie("SmallCLToken", $user->get_PwCn());
+                if($_POST["remember"] == "Remember Me"){
+                    setcookie("SmallCLUser", $user->get_userName(), time()+60*60*24*30 );
+                    setcookie("SmallCLToken", $user->get_PwCn(), time()+60*60*24*30 );
                 }
             }
         }
@@ -30,17 +43,30 @@ if(isset($_POST["userName"]) && isset($_POST["password"])){
     }
 }
 else if(isset($_COOKIE["SmallCLUser"])){
-    $user = $db->get_userFromUserName($_COOKIE["SmallCLUSer"]);
+    $user = $db->get_userFromUserName($_COOKIE["SmallCLUser"]);
 
     if($user->get_PwCn() == $_COOKIE["SmallCLToken"]){
         $_SESSION["LogedInUser"] = $user;
+        setcookie("SmallCLUser", $user->get_userName(), time()+60*60*24*30);
+        setcookie("SmallCLToken", $user->get_PwCn(), time()+60*60*24*30);
     }
 }
 
+
+if(isset($_GET["logout"])){
+    if(isset($_COOKIE["SmallCLUser"])){
+        setcookie("SmallCLUser", "", time()-60*60*24*30);
+        setcookie("SmallCLToken", "", time()-60*60*24*30);
+    }
+    session_unset();     // unset $_SESSION variable for the run-time
+    session_destroy();   // destroy session data in storage
+    header("location:login.php");
+    die;
+}
+
 if(isset($_SESSION["LogedInUser"])){
-    echo "<script language=\"javascript\">\n";
-    echo "  window.location.href = \"index.php\"\n";
-    echo "</script>";
+    header("location:index.php");
+    die;
 }
 ?>
 <html lang="de">
@@ -82,12 +108,12 @@ if(isset($_SESSION["LogedInUser"])){
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Bitte anmelden</h3>
+                        <h3 class="panel-title"><?php echo HELPER::get_langString('login.header') ?></h3>
                     </div>
                     <?php
                         if($loginWrong){
                             print "<div class=\"alert alert-danger\">\n";
-                            print "    Anmeldung fehlgeschlagen";
+                            print HELPER::get_langString('login.loginError');
                             print "</div>";
                         }
                     ?>
@@ -95,19 +121,19 @@ if(isset($_SESSION["LogedInUser"])){
                         <form role="form" action="login.php" method="POST">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Benutzername" name="userName" type="text" autofocus>
+                                    <input class="form-control" placeholder="Benutzername" name="userName" type="<?php echo HELPER::get_langString('login.username') ?>" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Passwort" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Passwort" name="password" type="<?php echo HELPER::get_langString('login.password') ?>" value="">
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Angemeldet bleiben
+                                        <input name="remember" type="checkbox" value="Remember Me"><?php echo HELPER::get_langString('login.remember') ?>
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
-                                <input type="submit" value="Anmelden" class="btn btn-lg btn-success btn-block">
+                                <input type="submit" value="<?php echo HELPER::get_langString('login.submit') ?>" class="btn btn-lg btn-success btn-block">
                             </fieldset>
                         </form>
                     </div>
