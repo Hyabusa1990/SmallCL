@@ -26,6 +26,11 @@
         'sidebar.dashboard'     => ' Dashboard',
         'sidebar.changes'       => ' Changes',
         'sidebar.addChanges'    => 'Add new change',
-        'sidebar.dispChanges'   => 'Display changes'
+        'sidebar.dispChanges'   => 'Display changes',
+        'sidebar.systems'       => ' Systems',
+        'sidebar.templates'     => ' Templates',
+        'sidebar.changeType'    => 'Display change types',
+        'sidebar.objectType'    => 'Display system types',
+        'sidebar.dispSystems'   => 'Display systems'
     );
 ?>
