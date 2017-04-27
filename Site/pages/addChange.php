@@ -81,6 +81,64 @@ if(isset($_GET["lang"])){
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Use Template
+                            </div>
+                            <div class="panel-body">
+                                <form role="form" action="addChange.php" method="GET">
+                                    <div class="form-group">
+                                        <label>Selects</label>
+                                        <select name="templateID" class="form-control">
+                                            <option value="1">Windows Updates</option>
+                                            <option value="2">Linux Update</option>
+                                            <option value="3">Switch Firmware Updates</option>
+                                            <option value="4">Änderungen Firewall</option>
+                                            <option value="5">Installation Server</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-default">Nutzen
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Change informations
+                            </div>
+                            <div class="panel-body">
+                                <form role="form" action="addChange.php" method="POST">
+                                    <div class="form-group">
+                                        <label>Titel</label>
+                                        <input class="form-control">
+                                        <p class="help-block">Kurztitel der Änderung</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Type</label>
+                                        <select name="type" class="form-control">
+                                            <option value="1">Windows Updates</option>
+                                            <option value="2">Linux Update</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Type</label>
+                                        <select name="type" class="form-control">
+                                            <option value="1">Windows Updates</option>
+                                            <option value="2">Linux Update</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- /.row -->
             </div>
             <!-- /.container-fluid -->

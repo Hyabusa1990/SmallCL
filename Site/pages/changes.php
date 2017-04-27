@@ -77,7 +77,68 @@ if(isset($_GET["lang"])){
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">CHANGES</h1>
+                        <h1 class="page-header"><?php echo HELPER::get_langString('changes.PageTitle') ?></h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <?php echo HELPER::get_langString('changes.TableHeader') ?>
+                            </div>
+                            <div class="panel-body">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-changes">
+                                <thead>
+                                    <tr>
+                                        <th><?php echo HELPER::get_langString('changes.THObject') ?> </th>
+                                        <th><?php echo HELPER::get_langString('changes.THCType') ?> </th>
+                                        <th><?php echo HELPER::get_langString('changes.THCTitle') ?> </th>
+                                        <th><?php echo HELPER::get_langString('changes.THCTime') ?> </th>
+                                        <th><?php echo HELPER::get_langString('changes.THUser') ?> </th>
+                                        <th><?php echo HELPER::get_langString('changes.THDetails') ?> </th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th><?php echo HELPER::get_langString('changes.THObject') ?> </th>
+                                        <th><?php echo HELPER::get_langString('changes.THCType') ?> </th>
+                                        <th><?php echo HELPER::get_langString('changes.THCTitle') ?> </th>
+                                        <th><?php echo HELPER::get_langString('changes.THCTime') ?> </th>
+                                        <th><?php echo HELPER::get_langString('changes.THUser') ?> </th>
+                                        <th><?php echo HELPER::get_langString('changes.THDetails') ?> </th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <!-- TODO: Inhalt einfügen -->
+                                    <tr>
+                                        <td>Switch-1OG</td>
+                                        <td>Switch</td>
+                                        <td>Update Firmware</td>
+                                        <td>27.04.2017</td>
+                                        <td>M.Mustermann</td>
+                                        <td><a href="changeDetails.php?id=1"><i class="fa fa-info" aria-hidden="true"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>sv-file</td>
+                                        <td>Windows Server</td>
+                                        <td>Install Windows Updates</td>
+                                        <td>27.03.2017</td>
+                                        <td>G.Gras</td>
+                                        <td><a href="changeDetails.php?id=2"><i class="fa fa-info" aria-hidden="true"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>sv-web</td>
+                                        <td>Linux Server</td>
+                                        <td>Install apt Updates</td>
+                                        <td>27.02.2017</td>
+                                        <td>T.Schroeder</td>
+                                        <td><a href="changeDetails.php?id=3"><i class="fa fa-info" aria-hidden="true"></i></a></td>
+                                    </tr>
+                                    <!-- END TODO -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -101,6 +162,40 @@ if(isset($_GET["lang"])){
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+    <!-- Tables Script -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-changes').DataTable({
+            responsive: true,
+            initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
+        });
+    });
+    </script>
 
 </body>
 

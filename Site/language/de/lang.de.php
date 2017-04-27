@@ -3,8 +3,8 @@
     |===========================================|
     |         Language File DE-German           |
     |-------------------------------------------|
-    | Structur:                                 |
-    |    '<page>.<var>'                         |
+    | Struktur:                                 |
+    |    '<site>.<var>'                         |
     |===========================================|
      */
     $lang = array(
@@ -31,6 +31,16 @@
         'sidebar.templates'     => ' Vorlagen',
         'sidebar.changeType'    => 'Änderungstypen anzeigen',
         'sidebar.objectType'    => 'Systemtypen anzeigen',
-        'sidebar.dispSystems'   => 'Systeme anzeigen'
+        'sidebar.dispSystems'   => 'Systeme anzeigen',
+
+        //changes.php
+        'changes.TableHeader'   => 'Änderungen',
+        'changes.THObject'      => 'System',
+        'changes.THCType'       => 'Typ',
+        'changes.THCTitle'      => 'Titel',
+        'changes.THCTime'       => 'Zeitpunkt',
+        'changes.THUser'        => 'Benutzer',
+        'changes.PageTitle'     => 'Änderungen',
+        'changes.THDetails'     => 'Details'
     );
 ?>

@@ -31,6 +31,16 @@
         'sidebar.templates'     => ' Templates',
         'sidebar.changeType'    => 'Display change types',
         'sidebar.objectType'    => 'Display system types',
-        'sidebar.dispSystems'   => 'Display systems'
+        'sidebar.dispSystems'   => 'Display systems',
+
+        //changes.php
+        'changes.TableHeader'   => 'Changes',
+        'changes.THObject'      => 'System',
+        'changes.THCType'       => 'Type',
+        'changes.THCTitle'      => 'Title',
+        'changes.THCTime'       => 'Time',
+        'changes.THUser'        => 'User',
+        'changes.PageTitle'     => 'Changes',
+        'changes.THDetails'     => 'Detail'
     );
 ?>
