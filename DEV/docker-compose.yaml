@@ -1,0 +1,87 @@
+version: '3.3'
+services:
+  db:
+    image: mariadb/server
+    container_name: mariadb
+    restart: on-failure
+    environment:
+      MYSQL_DATABASE: 'SmallCL'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'SmallCL'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'SmallCL'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'SmallCL'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - my-db:/var/lib/mysql
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+        MYSQL_USER: 'SmallCL'
+        # You can use whatever password you like
+        MYSQL_PASSWORD: 'SmallCL'
+        # Password for root access
+        MYSQL_ROOT_PASSWORD: 'SmallCL'
+        PMA_HOST: db
+    restart: on-failure
+    depends_on: 
+      - db
+    ports:
+     - 8080:80
+    volumes:
+     - /sessions
+
+  backend:
+    image: php:7.4-apache
+    container_name: backend
+    depends_on: 
+      - db
+    volumes:
+      - www-backend:/var/www/html/
+    ports:
+      - "9000:80"
+    stdin_open: true
+    tty: true
+
+  frontend:
+    image: php:7.4-apache
+    container_name: frontend
+    depends_on: 
+      - db
+    volumes:
+      - www-frontend:/var/www/html/
+    ports:
+      - "8100:80"
+    stdin_open: true
+    tty: true
+# Names our volume
+volumes:
+  my-db:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/gero/Docker/SmallCL/DEV/MYSQL
+
+  www-backend:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/gero/Docker/SmallCL/DEV/WWW/backend
+
+  www-frontend:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/gero/Docker/SmallCL/DEV/WWW/frontend
