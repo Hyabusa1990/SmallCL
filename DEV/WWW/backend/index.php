@@ -1,0 +1,3 @@
+<?php
+echo "THIS SERVICE IS NOT DIRECTLY ACCESSIBLE";
+exit;
