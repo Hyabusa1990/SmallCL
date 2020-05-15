@@ -27,10 +27,23 @@
 
       <!-- Main Content -->
       <div id="content">
-
+        <?php
+          NAVI::GET_TOPNAVI();
+        ?>
         <!-- Begin Page Content -->
         <div class="container-fluid">
+          <div class="col-lg-12">
 
+            <!-- Default Card Example -->
+            <div class="card mb-12">
+              <div class="card-header">
+                Default Card Example
+              </div>
+              <div class="card-body">
+                This card uses Bootstrap's default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example.
+              </div>
+            </div>
+          </div>
         </div>
         <!-- /.container-fluid -->
 
@@ -41,7 +54,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
+            <span>Copyright &copy; SmallCL 2020</span>
           </div>
         </div>
       </footer>
